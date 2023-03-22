@@ -34,8 +34,8 @@ namespace{
 
 int main(int argc, char* argv[]){
 	// we require two arguments at minimum
-	if (argc < 2){
-		std::cerr << "Error, inproper number of arguments supplied.\nAt least an input file or --help must be specified." << std::endl; 
+	if (argc != 2){
+		std::cerr << "Error, improper number of arguments supplied.\nAt least an input file or --help must be specified." << std::endl; 
 		return EXIT_FAILURE;
 	}
 

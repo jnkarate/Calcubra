@@ -21,7 +21,7 @@ problemData fileParser::parse(){
 	//read from file line by line
 	while (problemFile){
 		std::getline(problemFile, line);
-		//if first lien check if problem is algebra or calculus
+		//if first line check if problem is algebra or calculus
 		if (currentItemToRead == currentlyReading::typeOfProblem){
 			ret.isAlgebra = (line == "algebra");
 			currentItemToRead = currentlyReading::problemText;
