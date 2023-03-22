@@ -2,6 +2,14 @@
 #include <string>
 #include <fstream>
 
+namespace{
+	enum class currentlyReading{
+		typeOfProblem,
+		problemText,
+		done
+	};
+}
+
 problemData fileParser::parse(){
 	problemData ret;
 	
@@ -9,21 +17,23 @@ problemData fileParser::parse(){
 	std::ifstream problemFile {this->InputFile};
 
 	std::string line;
-	int counter = 0;
+	currentlyReading currentItemToRead = currentlyReading::typeOfProblem;
 	//read from file line by line
 	while (problemFile){
 		std::getline(problemFile, line);
 		//if first lien check if problem is algebra or calculus
-		if (counter == 0){
+		if (currentItemToRead == currentlyReading::typeOfProblem){
 			ret.isAlgebra = (line == "algebra");
+			currentItemToRead = currentlyReading::problemText;
 		}
 		//in all other cases get the problem text
-		else{
+		else if (currentItemToRead == currentlyReading::problemText){
 			ret.problemText = line;
+			currentItemToRead = currentlyReading::done;
 		}
 	}
 	problemFile.close();
 	
-	return std::move(ret);
+	return ret;
 }
 

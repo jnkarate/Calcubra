@@ -11,7 +11,7 @@ class fileParser{
 	private:
 		std::string InputFile;
 	public:
-		fileParser(std::string fileName) : InputFile(fileName) {}
+		fileParser(std::string iFileName) : InputFile(iFileName) {}
 		problemData parse();
 };
 

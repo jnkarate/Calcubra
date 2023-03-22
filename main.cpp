@@ -3,29 +3,31 @@
 #include <string>
 #include "fileParser.h"
 #include "userInteraction.h"
+#include "problem.h"
 
 namespace{
 	struct args{
 		bool isHelp;
 		std::string inputFileName;
-		std::string outputFileName;
 	};
 
 	args parseArgs(const int argc, char* argv[]){
 		args ret;
+		std::string arg;
+
+		//assume to not be help
+		ret.isHelp = false;
+
 		for(int i = 1; i < argc; i = i+2){
-			if (argv[i] == "--help"){
+			arg = std::string(argv[i]);
+			if (arg == "--help"){
 				ret.isHelp = true;
 			}
-			else if (argv[i] == "--inputFile"){
+			else if (arg == "--inputFile"){
 				ret.inputFileName = std::string(argv[i+1]);
 			}
-			else if (argv[i] == "--outputFile"){
-				ret.outputFileName = std::string(argv[i+1]);
-			}
 		}
-		
-		return std::move(ret);
+		return ret;
 	}
 
 }
@@ -38,12 +40,17 @@ int main(int argc, char* argv[]){
 	}
 
 	auto args = parseArgs(argc, argv);
-	
+		
 	// help case
 	if (args.isHelp){
 		userInteraction::printHelp();
 		return EXIT_SUCCESS;
 	}
-	
+
+	fileParser parser (args.inputFileName);
+	problemData data = parser.parse();
+
+	problem userSpecifiedProblem (data);
+	userSpecifiedProblem.computeDerivative();
 		
 }
