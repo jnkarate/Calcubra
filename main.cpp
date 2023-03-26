@@ -6,11 +6,13 @@
 #include "problem.h"
 
 namespace{
+	// struct to help with argument parsing
 	struct args{
 		bool isHelp;
 		std::string inputFileName;
 	};
-
+	
+	//parse the command line arguments
 	args parseArgs(const int argc, char* argv[]){
 		args ret;
 		std::string arg;
@@ -46,10 +48,12 @@ int main(int argc, char* argv[]){
 		userInteraction::printHelp();
 		return EXIT_SUCCESS;
 	}
-
+	
+	//parse input file
 	fileParser parser (args.inputFileName);
 	problemData data = parser.parse();
-
+	
+	//solve problem
 	problem userSpecifiedProblem (data);
 	userSpecifiedProblem.computeDerivative();
 		

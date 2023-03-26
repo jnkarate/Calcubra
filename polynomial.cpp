@@ -2,6 +2,7 @@
 #include <iostream>
 
 namespace {
+	//enum to determine what value is currently being read
 	enum class readingFrom {
 		coeff,
 		exponent
@@ -11,6 +12,7 @@ namespace {
 polynomial::polynomial(std::string polyText) {
 	readingFrom currentlyReading = readingFrom::coeff;
 	std::string currentValue = "";
+	//loop over the entire polynomial
 	for (size_t i = 0; i < polyText.length(); i++) {
 		if (!std::isdigit(polyText[i])) {
 			//save coefficient
@@ -31,6 +33,7 @@ polynomial::polynomial(std::string polyText) {
 	this->degree = std::atoi(currentValue.c_str());
 }
 
+//display a polynomial
 std::ostream& operator<<(std::ostream& os, const polynomial& p){
 	os << p.coefficient << "X^" << p.degree;
 	return os;

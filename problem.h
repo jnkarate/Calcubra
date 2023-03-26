@@ -5,6 +5,7 @@
 #include "fileParser.h"
 #include "polynomial.h"
 
+//
 class problem{
 	public:
 		problem(problemData);
@@ -13,6 +14,7 @@ class problem{
 		~problem();
 
 	private:
+		//store the polynomials
 		std::vector<polynomial*> polynomials;
 };
 

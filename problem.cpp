@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
+// build a problem from a text input
 problem::problem(problemData problemInformation) {
 	std::string currentValue = "";
 	for(size_t i = 0; i < problemInformation.problemText.length(); i++){
@@ -11,6 +12,7 @@ problem::problem(problemData problemInformation) {
 			if (currentValue[0] == '+'){
 				currentValue = currentValue.substr(1,currentValue.length());
 			}
+			// create a polynomial from the current polynomial
 			this->polynomials.push_back(new polynomial(currentValue));
 			currentValue = "";
 		}
@@ -27,6 +29,7 @@ problem::problem(problemData problemInformation) {
 	this->polynomials.push_back(new polynomial(currentValue));
 }
 
+//copmute a derivative
 void problem::computeDerivative(){
 	std::cout << "Original problem: " << *this << std::endl;
 	std::cout << "Power rule" << std::endl;
@@ -42,13 +45,15 @@ void problem::computeDerivative(){
 			
 		}
 	}
-
+	
+	//erase polynomials that are eliminated from vector
 	for (size_t i = 0; i < polynomialsToDelete.size(); i++){
 		polynomial* polynomialToDelete = polynomials[polynomialsToDelete[i]];
 		polynomials.erase(polynomials.begin()+polynomialsToDelete[i]);
 		delete polynomialToDelete;
 	}
 
+	//update remaining polynomials
 	for (size_t i = 0; i < polynomials.size(); i++){
 		polynomial* currentPolynomial = polynomials[i];
 		int oldDegree = currentPolynomial->getDegree();
@@ -59,7 +64,9 @@ void problem::computeDerivative(){
 	std::cout << *this << std::endl;
 }
 
+//display a problem
 std::ostream& operator<<(std::ostream& os, const problem& p){
+	//display each polynomial
 	for (size_t i = 0; i < p.polynomials.size(); i++){
 		os << *(p.polynomials[i]);
 		if ( i != p.polynomials.size()-1){
@@ -69,6 +76,7 @@ std::ostream& operator<<(std::ostream& os, const problem& p){
 	return os;
 }
 
+//delete the polynomials storede within the problem
 problem::~problem(){
 	for (size_t i = 0; i < polynomials.size(); i++){
 		delete polynomials[i];
