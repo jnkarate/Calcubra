@@ -15,3 +15,5 @@ windows:
 4. use the following command to run calcubra in help mode: calcubra.exe --help
 
 The build script uses Visual Studio 2022 community edition
+
+github link: https://github.com/jnkarate/Calcubra
